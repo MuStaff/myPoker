@@ -33,7 +33,13 @@ function isFlush(arr) {
 }
 
 function isStraight(arr) {
-    for()
+    const setStraight = new Set();
+
+    for(let i = 1; i < arr.length; i++) {
+        setStraight.add(arr[i] - arr[i-1])
+    }
+
+    return (setStraight.size === 1 ? true : false)
 }
 
 function oneValue(arr) {

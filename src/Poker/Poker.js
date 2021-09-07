@@ -39,6 +39,13 @@ function convertToCardNum(arr) {
   return arr.map((num) => num % 13);
 }
 
+// convert arr to cards arr
+function toCard(arr) {
+  return arr.map((num) => {
+    return "Card: " + (num % 13) + " Suit: " + Math.floor(num / 13);
+  });
+}
+
 // check cards to Flush (one suit)
 function isFlush(arr) {
   const setSuit = new Set();
@@ -120,4 +127,29 @@ function isTwoPair(arr) {
 // check arr to Pair
 function isPair(arr) {
   return Object.values(occurrences(arr)).includes(2);
+}
+
+//find win combination
+function findWinCombination(arr) {
+  if (isRoyalFlush(arr)) {
+    return { 1: "isRoyalFlush" };
+  } else if (isStraightFlush(arr)) {
+    return { 2: "isStraightFlush" };
+  } else if (isFourOfAKind(arr)) {
+    return { 3: "isFourOfAKind" };
+  } else if (isFullHouse(arr)) {
+    return { 4: "isFullHouse" };
+  } else if (isFlush(arr)) {
+    return { 5: "isFlush" };
+  } else if (isStraight(arr)) {
+    return { 6: "isStraight" };
+  } else if (isThreeOfAKind(arr)) {
+    return { 7: "isThreeOfAKind" };
+  } else if (isTwoPair(arr)) {
+    return { 8: "isTwoPair" };
+  } else if (isPair(arr)) {
+    return { 9: "isPair" };
+  } else {
+    return { 10: "isHighCard" };
+  }
 }

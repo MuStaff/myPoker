@@ -37,7 +37,7 @@ const convertToCardNum = (arr) => {
 // convert arr to cards arr
 const toCard = (arr) => {
   return arr.map((num) => {
-    return "Card: " + (num % 13) + " Suit: " + Math.floor(num / 13);
+    return "Card: " + (num % 13 + 2) + " Suit: " + Math.floor(num / 13);
   });
 };
 
@@ -127,25 +127,25 @@ const isPair = (arr) => {
 //find win combination
 const findWinCombination = (arr) => {
   if (isRoyalFlush(arr)) {
-    return { 1: "isRoyalFlush" };
+    return { rank: 1, text: "isRoyalFlush" };
   } else if (isStraightFlush(arr)) {
-    return { 2: "isStraightFlush" };
+    return { rank: 2, text: "isStraightFlush" };
   } else if (isFourOfAKind(arr)) {
-    return { 3: "isFourOfAKind" };
+    return { rank: 3, text: "isFourOfAKind" };
   } else if (isFullHouse(arr)) {
-    return { 4: "isFullHouse" };
+    return { rank: 4, text: "isFullHouse" };
   } else if (isFlush(arr)) {
-    return { 5: "isFlush" };
+    return { rank: 5, text: "isFlush" };
   } else if (isStraight(arr)) {
-    return { 6: "isStraight" };
+    return { rank: 6, text: "isStraight" };
   } else if (isThreeOfAKind(arr)) {
-    return { 7: "isThreeOfAKind" };
+    return { rank: 7, text: "isThreeOfAKind" };
   } else if (isTwoPair(arr)) {
-    return { 8: "isTwoPair" };
+    return { rank: 8, text: "isTwoPair" };
   } else if (isPair(arr)) {
-    return { 9: "isPair" };
+    return { rank: 9, text: "isPair" };
   } else {
-    return { 10: "isHighCard" };
+    return { rank: 10, text: "isHighCard" };
   }
 };
 
@@ -156,4 +156,29 @@ const startGame = () => {
   );
 
   const { playerOne, playerTwo, hand } = dealingСards(deck);
+
+  const totalHandOne = totalHand(playerOne, hand);
+  const totalHandTwo = totalHand(playerTwo, hand);
+
+  const combinationsOne = combine(totalHandOne, 5);
+  const combinationsTwo = combine(totalHandTwo, 5);
+
+  const winArrOne = combinationsOne.map((combination) => {
+    return findWinCombination(combination).rank;
+  });
+  const winArrTwo = combinationsTwo.map((combination) => {
+    return findWinCombination(combination).rank;
+  });
+
+  console.log("hand: ", toCard(hand));
+  console.log("playerOne: ", toCard(playerOne));
+  console.log("playerTwo: ", toCard(playerTwo));
+
+  console.log("combinationsOne: ", combinationsOne.map((combination) => toCard(combination)));
+  console.log("combinationsTwo: ", combinationsTwo.map((combination) => toCard(combination)));
+
+  console.log("winArrOne: ", winArrOne);
+  console.log("winArrTwo: ", winArrTwo);
 };
+
+startGame();

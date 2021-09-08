@@ -8,12 +8,7 @@ const shuffler = (arr) => {
     arr[i] = temp;
   }
   return arr;
-}
-
-// create array 0-51 (deck)
-const deck = shuffler(
-  Array.apply(null, { length: 52 }).map(Number.call, Number)
-);
+};
 
 // create hand and players hands
 const dealingСards = (deck) => {
@@ -22,29 +17,29 @@ const dealingСards = (deck) => {
   const hand = deck.splice(deck.length - 5, 5);
 
   return { playerOne, playerTwo, hand };
-}
+};
 
 // create an array of player cards and hand
 const totalHand = (playerCards, hand) => {
   return [...playerCards, ...hand];
-}
+};
 
 // convert number to suit number
 const convertToSuit = (numb) => {
   return Math.floor(numb / 13);
-}
+};
 
 // convert numbers from array to card numbers array
 const convertToCardNum = (arr) => {
   return arr.map((num) => num % 13);
-}
+};
 
 // convert arr to cards arr
 const toCard = (arr) => {
   return arr.map((num) => {
     return "Card: " + (num % 13) + " Suit: " + Math.floor(num / 13);
   });
-}
+};
 
 // check cards to Flush (one suit)
 const isFlush = (arr) => {
@@ -55,7 +50,7 @@ const isFlush = (arr) => {
   });
 
   return setSuit.size === 1;
-}
+};
 
 // check cards to Straight (in series)
 const isStraight = (arr) => {
@@ -73,17 +68,17 @@ const isStraight = (arr) => {
     });
 
   return setStep.size === 1;
-}
+};
 
 // check cards to Straight Flush (one suit and in series)
 const isStraightFlush = (arr) => {
   return isStraight(arr) && isFlush(arr);
-}
+};
 
 // check cards to Royal Flush (one suit and in series to A)
 const isRoyalFlush = (arr) => {
   return isStraightFlush(arr) && convertToCardNum(arr).includes(13);
-}
+};
 
 // create object by the occurrences of cards
 const occurrences = (arr) => {
@@ -91,7 +86,7 @@ const occurrences = (arr) => {
     acc[curr] = (acc[curr] || 0) + 1;
     return acc;
   }, {});
-}
+};
 
 // create all unique combinations with total hand (5 of 7)
 const combine = (arr, count) => {
@@ -107,27 +102,27 @@ const combine = (arr, count) => {
 // check arr to Four Of A Kind
 const isFourOfAKind = (arr) => {
   return Object.values(occurrences(arr)).includes(4);
-}
+};
 
 // check arr to Full House
 const isFullHouse = (arr) => {
   return isPair(arr) && isThreeOfAKind(arr);
-}
+};
 
 // check arr to Three Of A Kind
 const isThreeOfAKind = (arr) => {
   return Object.values(occurrences(arr)).includes(3);
-}
+};
 
 // check arr to Two Pair
 const isTwoPair = (arr) => {
   return Object.values(occurrences(arr)).filter((el) => el === 2).length === 2;
-}
+};
 
 // check arr to Pair
 const isPair = (arr) => {
   return Object.values(occurrences(arr)).includes(2);
-}
+};
 
 //find win combination
 const findWinCombination = (arr) => {
@@ -152,4 +147,13 @@ const findWinCombination = (arr) => {
   } else {
     return { 10: "isHighCard" };
   }
-}
+};
+
+const startGame = () => {
+  // create array 0-51 (deck)
+  const deck = shuffler(
+    Array.apply(null, { length: 52 }).map(Number.call, Number)
+  );
+
+  const { playerOne, playerTwo, hand } = dealingСards(deck);
+};

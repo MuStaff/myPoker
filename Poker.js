@@ -1,5 +1,5 @@
 // Start game (shuffle deck)
-function shuffler(arr) {
+const shuffler = (arr) => {
   let j, temp;
   for (let i = arr.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1));
@@ -16,7 +16,7 @@ const deck = shuffler(
 );
 
 // create hand and players hands
-function dealingСards(deck) {
+const dealingСards = (deck) => {
   const playerOne = deck.splice(deck.length - 2, 2);
   const playerTwo = deck.splice(deck.length - 2, 2);
   const hand = deck.splice(deck.length - 5, 5);
@@ -25,29 +25,29 @@ function dealingСards(deck) {
 }
 
 // create an array of player cards and hand
-function totalHand(playerCards, hand) {
+const totalHand = (playerCards, hand) => {
   return [...playerCards, ...hand];
 }
 
 // convert number to suit number
-function convertToSuit(numb) {
+const convertToSuit = (numb) => {
   return Math.floor(numb / 13);
 }
 
 // convert numbers from array to card numbers array
-function convertToCardNum(arr) {
+const convertToCardNum = (arr) => {
   return arr.map((num) => num % 13);
 }
 
 // convert arr to cards arr
-function toCard(arr) {
+const toCard = (arr) => {
   return arr.map((num) => {
     return "Card: " + (num % 13) + " Suit: " + Math.floor(num / 13);
   });
 }
 
 // check cards to Flush (one suit)
-function isFlush(arr) {
+const isFlush = (arr) => {
   const setSuit = new Set();
 
   arr.forEach((card) => {
@@ -58,7 +58,7 @@ function isFlush(arr) {
 }
 
 // check cards to Straight (in series)
-function isStraight(arr) {
+const isStraight = (arr) => {
   const setStep = new Set();
 
   convertToCardNum(arr)
@@ -76,17 +76,17 @@ function isStraight(arr) {
 }
 
 // check cards to Straight Flush (one suit and in series)
-function isStraightFlush(arr) {
+const isStraightFlush = (arr) => {
   return isStraight(arr) && isFlush(arr);
 }
 
 // check cards to Royal Flush (one suit and in series to A)
-function isRoyalFlush(arr) {
+const isRoyalFlush = (arr) => {
   return isStraightFlush(arr) && convertToCardNum(arr).includes(13);
 }
 
 // create object by the occurrences of cards
-function occurrences(arr) {
+const occurrences = (arr) => {
   return convertToCardNum(arr).reduce((acc, curr) => {
     acc[curr] = (acc[curr] || 0) + 1;
     return acc;
@@ -105,32 +105,32 @@ const combine = (arr, count) => {
 };
 
 // check arr to Four Of A Kind
-function isFourOfAKind(arr) {
+const isFourOfAKind = (arr) => {
   return Object.values(occurrences(arr)).includes(4);
 }
 
 // check arr to Full House
-function isFullHouse(arr) {
+const isFullHouse = (arr) => {
   return isPair(arr) && isThreeOfAKind(arr);
 }
 
 // check arr to Three Of A Kind
-function isThreeOfAKind(arr) {
+const isThreeOfAKind = (arr) => {
   return Object.values(occurrences(arr)).includes(3);
 }
 
 // check arr to Two Pair
-function isTwoPair(arr) {
+const isTwoPair = (arr) => {
   return Object.values(occurrences(arr)).filter((el) => el === 2).length === 2;
 }
 
 // check arr to Pair
-function isPair(arr) {
+const isPair = (arr) => {
   return Object.values(occurrences(arr)).includes(2);
 }
 
 //find win combination
-function findWinCombination(arr) {
+const findWinCombination = (arr) => {
   if (isRoyalFlush(arr)) {
     return { 1: "isRoyalFlush" };
   } else if (isStraightFlush(arr)) {

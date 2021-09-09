@@ -37,7 +37,7 @@ const convertToCardNum = (arr) => {
 // convert arr to cards arr
 const toCard = (arr) => {
   return arr.map((num) => {
-    return "Card: " + (num % 13 + 2) + " Suit: " + Math.floor(num / 13);
+    return "Card: " + ((num % 13) + 2) + " Suit: " + Math.floor(num / 13);
   });
 };
 
@@ -170,15 +170,27 @@ const startGame = () => {
     return findWinCombination(combination).rank;
   });
 
+  const winRankOne = Math.min(...winArrOne);
+  const winRankTwo = Math.min(...winArrTwo);
+
   console.log("hand: ", toCard(hand));
   console.log("playerOne: ", toCard(playerOne));
   console.log("playerTwo: ", toCard(playerTwo));
 
-  console.log("combinationsOne: ", combinationsOne.map((combination) => toCard(combination)));
-  console.log("combinationsTwo: ", combinationsTwo.map((combination) => toCard(combination)));
+  console.log(
+    "combinationsOne: ",
+    combinationsOne.map((combination, i) => i + ") " + toCard(combination))
+  );
+  console.log(
+    "combinationsTwo: ",
+    combinationsTwo.map((combination, i) => i + 1 + ") " + toCard(combination))
+  );
 
   console.log("winArrOne: ", winArrOne);
   console.log("winArrTwo: ", winArrTwo);
+
+  console.log("winRankOne: ", winRankOne);
+  console.log("winRankTwo: ", winRankTwo);
 };
 
 startGame();
